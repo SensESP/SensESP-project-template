@@ -21,9 +21,7 @@ reactesp::ReactESP app;
 
 // The setup function performs one-time application initialization.
 void setup() {
-#ifndef SERIAL_DEBUG_DISABLED
-  SetupSerialDebug(115200);
-#endif
+  SetupLogging();
 
   // Construct the global SensESPApp() object
   SensESPAppBuilder builder;
@@ -104,7 +102,7 @@ void setup() {
   // analog input value to the Signal K server every time it changes.
   analog_input->connect_to(new SKOutputFloat(
       "sensors.analog_input.voltage",         // Signal K path
-      "/sensors/analog_input/voltage",        // configuration path, used in the
+      "/Sensors/Analog Input/Voltage",        // configuration path, used in the
                                               // web UI and for storing the
                                               // configuration
       new SKMetadata("V",                     // Define output units
@@ -114,13 +112,11 @@ void setup() {
   // Connect digital input 2 to Signal K output.
   digital_input2->connect_to(new SKOutputBool(
       "sensors.digital_input2.value",          // Signal K path
-      "/sensors/digital_input2/value",         // configuration path
+      "/Sensors/Digital Input 2/Value",         // configuration path
       new SKMetadata("",                       // No units for boolean values
                      "Digital input 2 value")  // Value description
       ));
 
-  // Start networking, SK server connections and other SensESP internals
-  sensesp_app->start();
 }
 
 void loop() { app.tick(); }
