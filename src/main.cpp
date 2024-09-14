@@ -17,8 +17,6 @@
 
 using namespace sensesp;
 
-reactesp::ReactESP app;
-
 // The setup function performs one-time application initialization.
 void setup() {
   SetupLogging();
@@ -58,9 +56,10 @@ void setup() {
   const uint8_t kDigitalOutputPin = 15;
   const unsigned int kDigitalOutputInterval = 650;
   pinMode(kDigitalOutputPin, OUTPUT);
-  app.onRepeat(kDigitalOutputInterval, [kDigitalOutputPin]() {
-    digitalWrite(kDigitalOutputPin, !digitalRead(kDigitalOutputPin));
-  });
+  SensESPBaseApp::get_event_loop()->onRepeat(
+      kDigitalOutputInterval, [kDigitalOutputPin]() {
+        digitalWrite(kDigitalOutputPin, !digitalRead(kDigitalOutputPin));
+      });
 
   // Read GPIO 14 every time it changes
 
@@ -112,11 +111,10 @@ void setup() {
   // Connect digital input 2 to Signal K output.
   digital_input2->connect_to(new SKOutputBool(
       "sensors.digital_input2.value",          // Signal K path
-      "/Sensors/Digital Input 2/Value",         // configuration path
+      "/Sensors/Digital Input 2/Value",        // configuration path
       new SKMetadata("",                       // No units for boolean values
                      "Digital input 2 value")  // Value description
       ));
-
 }
 
-void loop() { app.tick(); }
+void loop() { SensESPBaseApp::get_event_loop()->tick(); }
