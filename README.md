@@ -1,4 +1,5 @@
 # SensESP Project Template
+##ET1 Sandbox branch for SensESP v3
 
 This repository provides a template for [SensESP](https://github.com/SignalK/SensESP/) projects.
 Fork, clone or download the repository and try building and uploading the project to an ESP32 device.
