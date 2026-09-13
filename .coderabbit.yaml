@@ -1,0 +1,68 @@
+language: en-US
+
+reviews:
+  profile: assertive
+  auto_review:
+    enabled: true
+    drafts: false
+  high_level_summary_instructions: |
+    Write all summaries in present tense.
+    Describe what the code does, not what it did.
+    Example: "This PR adds feature X" instead of "This PR added feature X"
+
+  path_instructions:
+    - path: '**/*'
+      instructions: |
+        ## Secrets and infrastructure must not be committed
+        This repository is public. Flag any real password, token, OTA
+        credential, WiFi credential, private key, hostname, domain, IP address,
+        internal URL, or account name. A placeholder such as `change-me` or
+        `my-boat.local` is fine; a real value is not. Vessel names and MMSIs are
+        ordinary test data.
+
+        ## Echo comments
+        Flag any comment that merely restates what the code already says.
+        Examples:
+        - `// Set the pin` above a method named `set_pin()`
+        - `// Loop through the sensors` above a `for` loop
+        Request removal, or replacement with a comment that explains *why*, not
+        *what*.
+
+        ## Leftover crumbs from intermediate commits
+        Flag any comment, doc, or code that refers to something no longer
+        present in the branch -- a removed variable, an old function name, a
+        deleted file, a superseded approach.
+
+        ## Documentation drift risk
+        Flag prose in a .md file that duplicates code logic, hard-codes
+        configuration values, or lists API call sequences that fall out of sync
+        as the code changes. Documentation should describe how things work
+        conceptually. Build and flash instructions that a user follows are fine;
+        the risk is prose that restates the code.
+
+        ## Unchecked items in test plans
+        If a PR description or a .md file has a checklist with unchecked items,
+        flag it. Either the work is incomplete, or the checklist should be
+        removed before merge.
+
+        ## Implementation status in documentation
+        Flag a .md file that records build narrative or progress ("Step 3:
+        implement X", "TODO: add Y", "currently implemented as Z"). That belongs
+        in PR descriptions or commit messages. Architecture and design rationale
+        in docs are fine.
+
+        ## Scope
+        Focus on files changed since main. Consider how the change interacts
+        with existing code and documentation, not only the diff in isolation.
+
+    - path: 'src/**/*.{h,cpp}'
+      instructions: |
+        ## Firmware, not a library
+        This is an application template, not an API library. Do not require
+        Doxygen `@brief`/`@param` blocks on its classes and methods.
+
+        ## Formatting and naming
+        Do not flag formatting that `.clang-format` owns: 2-space indent, Google
+        style, include ordering. Do not flag the established naming convention:
+        trailing underscore on private and protected members, `k` prefix on
+        constants, `lower_case` variables, `CamelCase` types.
