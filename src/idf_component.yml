@@ -1,0 +1,8 @@
+# Managed component dependencies for the main (src) component, resolved from
+# the ESP-IDF component registry by the <board>_espidf environments and pinned
+# in dependencies.lock. The arduino environments do not read this file.
+dependencies:
+  # SensESP's Signal K websocket client includes <esp_websocket_client.h>,
+  # which ESP-IDF 5.x no longer bundles. Pinned exact to 1.7.0, the first
+  # release that receives under the client lock (the mbedTLS concurrency fix).
+  espressif/esp_websocket_client: "==1.7.0"
